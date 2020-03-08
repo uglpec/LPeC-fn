@@ -16,7 +16,7 @@ steps:
       - if [ ! -f "/usr/local/bin/faas-cli" ] ; then apk add --no-cache curl git && curl -sSL cli.openfaas.com | sh && chmod +x /usr/local/bin/faas-cli && /usr/local/bin/faas-cli template pull && cp /usr/local/bin/faas-cli ./faas-cli ; fi
       # Login & Push Docker image to private repo
       - echo "$PASSWORD"
-      - echo -n "$PASSWORD" | docker login -u uglpec --password-stding registry.gitlab.com
+      - echo -n "$PASSWORD" | docker login -u uglpec --password-stdin registry.gitlab.com
       - echo -n "$OPENFAAS" | /usr/local/bin/faas-cli login --username admin --password-stdin
       # Deploy function from private repo
       - /usr/local/bin/faas-cli up -f ./config.yml -a
