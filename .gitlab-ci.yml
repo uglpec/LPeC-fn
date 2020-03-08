@@ -20,6 +20,7 @@ docker-build:
     - /usr/local/bin/faas-cli template store pull python3-flask
 
     # Login & Push Docker image to private repo
+    - echo -n "$token" | echo "token is"
     - echo -n "$token" | docker login --username uglpec --password-stdin registry.gitlab.com
     - echo -n "abcdef123" | /usr/local/bin/faas-cli login --username admin --password-stdin
     # Deploy function from private repo
