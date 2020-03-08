@@ -2,9 +2,24 @@ kind: pipeline
 type: docker
 name: default
 
+pipeline:
+  ping:
+    image: docker
+    environment:
+      - DOCKER_HOST=unix:///drone/docker.sock
+    commands:
+      - sleep 10 # give docker enough time to initialize
+      - docker ps -a
+
+services:
+  docker:
+    image: docker:dind
+    privileged: true
+    command: ["-H", "unix:///drone/docker.sock"]
+
 steps:
   - name: deploy
-    image: plugins/docker
+    image: docker:dind
     environment:
       OPENFAAS_URL: "https://openfaas-ingress-3rd-uglpec.cloud.okteto.net"
       OPENFAAS:
