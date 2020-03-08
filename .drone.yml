@@ -6,6 +6,7 @@ steps:
   - name: deploy
     image: docker:dind
     environment:
+      OPENFAAS_URL: "https://openfaas-ingress-3rd-uglpec.cloud.okteto.net"
       OPENFAAS:
         from_secret: CI_OPENFAAS_PASS
       PASSWORD:
