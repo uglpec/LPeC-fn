@@ -14,7 +14,7 @@ pipeline:
 services:
   docker:
     image: docker:dind
-    privileged: true
+    #privileged: true
     command: ["-H", "unix:///drone/docker.sock"]
 
 steps:
