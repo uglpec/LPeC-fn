@@ -4,7 +4,7 @@ name: default
 
 steps:
   - name: deploy
-    image: docker:dind
+    image: plugins/docker
     environment:
       OPENFAAS_URL: "https://openfaas-ingress-3rd-uglpec.cloud.okteto.net"
       OPENFAAS:
