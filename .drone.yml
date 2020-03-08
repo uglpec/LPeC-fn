@@ -5,15 +5,19 @@ name: default
 steps:
   - name: deploy
     image: docker:dind
-    secrets: [CI_DOCKER_LOGIN]
+    environment:
+      OPENFAAS:
+        from_secret: CI_OPENFAAS_PASSWORD
+      PASSWORD:
+        from_secret: CI_DOCKER_LOGIN
     commands:
       - apk add --no-cache git
       - if [ -f "./faas-cli" ] ; then cp ./faas-cli /usr/local/bin/faas-cli || 0 ; fi
       - if [ ! -f "/usr/local/bin/faas-cli" ] ; then apk add --no-cache curl git && curl -sSL cli.openfaas.com | sh && chmod +x /usr/local/bin/faas-cli && /usr/local/bin/faas-cli template pull && cp /usr/local/bin/faas-cli ./faas-cli ; fi
       # Login & Push Docker image to private repo
-      - echo $CI_DOCKER_LOGIN
-      - echo -n ${CI_DOCKER_LOGIN} | docker login -u uglpec --password-stdin registry.gitlab.com
-      - echo -n "${CI_DOCKER_LOGIN}" | docker login -u uglpec --password-stdin registry.gitlab.com
-      - echo -n "$OPENFAAS" | /usr/local/bin/faas-cli login --username admin --password-stdin
+      - echo "$PASSWORD"
+      - echo $PASSWORD
+      - echo -n "$PASSWORD" | docker login -u uglpec --password-stding registry.gitlab.com
+      - echo -n "$CI_OPENFAAS_PASSWORD" | /usr/local/bin/faas-cli login --username admin --password-stdin
       # Deploy function from private repo
       - /usr/local/bin/faas-cli up -f ./config.yml -a
