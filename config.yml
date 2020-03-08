@@ -6,4 +6,4 @@ functions:
   wordpress:
     lang: python3-flask
     handler: ./wordpress
-    image: registry.gitlab.com/uglpec/uglpecV2:wordpress-v1
+    image: registry.gitlab.com/uglpec/lpec-fn:wordpress-v1
