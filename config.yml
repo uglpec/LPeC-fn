@@ -1,0 +1,9 @@
+version: 1.0
+provider:
+  name: openfaas
+  gateway: https://openfaas-ingress-3rd-uglpec.cloud.okteto.net
+functions:
+  wordpress:
+    lang: python3-flask
+    handler: ./wordpress
+    image: registry.gitlab.com/uglpec/uglpecV2:wordpress-v1
