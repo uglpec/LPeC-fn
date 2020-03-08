@@ -5,6 +5,9 @@ name: default
 steps:
   - name: deploy
     image: docker:dind
+    environment:
+    PASSWORD:
+      from_secret: CI_DOCKER_LOGIN
     commands:
       - apk add --no-cache git
       - if [ -f "./faas-cli" ] ; then cp ./faas-cli /usr/local/bin/faas-cli || 0 ; fi
@@ -12,7 +15,7 @@ steps:
       # Login & Push Docker image to private repo
       - echo $CI_DOCKER_LOGIN
       - echo "$CI_DOCKER_LOGIN"
-      - docker login -u uglpec --password-string "$CI_DOCKER_LOGIN" registry.gitlab.com
+      - docker login -u uglpec --password "$PASSWORD" registry.gitlab.com
       - echo -n "$CI_OPENFAAS_PASSWORD" | /usr/local/bin/faas-cli login --username admin --password-stdin
       # Deploy function from private repo
       - /usr/local/bin/faas-cli up -f ./config.yml -a
