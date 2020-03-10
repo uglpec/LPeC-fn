@@ -1,4 +1,6 @@
 version: 1.0
+secrets:
+      - dockerhub
 provider:
   name: openfaas
   gateway: https://openfaas-ingress-3rd-uglpec.cloud.okteto.net
