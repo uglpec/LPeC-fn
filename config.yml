@@ -1,6 +1,4 @@
 version: 1.0
-secrets:
-      - dockerhub
 provider:
   name: openfaas
   gateway: https://openfaas-ingress-3rd-uglpec.cloud.okteto.net
@@ -9,11 +7,15 @@ functions:
     lang: python3-flask
     handler: ./wordpress
     image: repo.treescale.com/uglpec/wordpress:v1
+    secrets:
+      - dockerhub
     limits:
       memory: 100Mi
   prestashop:
     lang: golang-http
     handler: ./prestashop
     image: repo.treescale.com/uglpec/prestashop:v1
+    secrets:
+      - dockerhub
     limits:
       memory: 100Mi
