@@ -6,12 +6,12 @@ functions:
   wordpress:
     lang: python3-flask
     handler: ./wordpress
-    image: registry.gitlab.com/uglpec/lpec-fn:wordpress-v1
+    image: repo.treescale.com/uglpec/wordpress:v1
     limits:
       memory: 100Mi
   prestashop:
     lang: golang-http
     handler: ./prestashop
-    image: registry.gitlab.com/uglpec/lpec-fn:prestashop-v1
+    image: repo.treescale.com/uglpec/prestashop:v1
     limits:
       memory: 100Mi
